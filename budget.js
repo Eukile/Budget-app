@@ -101,7 +101,7 @@ function deleteOrEdit(event) {
 
 function deleteEntry(entry) {
     ENTRY_LIST.splice(entry.id, 1);
-    updateUI;
+    updateUI();
 }
 
 function editEntry(entry) {
