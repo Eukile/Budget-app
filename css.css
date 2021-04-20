@@ -41,11 +41,11 @@ input[type=number] {
 .budget-container{
     position: absolute;
     width: 360px;
-    height: 780px;
+    height: 650px;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    background-color: #34006a;
+    background-color: green;
 }
 
 .budget-container .app-title{
@@ -58,10 +58,6 @@ input[type=number] {
 }
 .budget-container .app-title a b{
     font-family: 'Gilroy Bold';
-}
-
-.budget-header{
-
 }
 
 .budget-header .balance{
@@ -112,7 +108,7 @@ input[type=number] {
     opacity: 0.5;
 }
 .budget-header .account .outcome .outcome-total{
-    color: #f0624d;
+    color: red;
     font-family: 'Gilroy Bold';
 }
 
@@ -225,7 +221,7 @@ input[type=number] {
 
 }
 .budget-dashboard #all ul.list li.expense{
-    color: #f0624d;
+    color: red;
 }
 
 /* //////// EXPENSE ////////// */
@@ -306,7 +302,7 @@ input[type=number] {
     margin-bottom: 10px;;
     word-wrap: break-word;
     font-family: 'Gilroy Bold';
-    color: #f0624d;
+    color: red;
 }
 
 .budget-dashboard #expense ul.list li #edit{

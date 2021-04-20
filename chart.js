@@ -11,7 +11,11 @@ canvas.height = 50;
 chartEl.appendChild(canvas);
 
 
+
 const ctx = canvas.getContext("2d");
+
+// Line width
+ctx.lineWidth = 8;
 
 // circle radius 20px
 const R = 20;
@@ -27,5 +31,5 @@ function updateChart(income, outcome) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let ratio = income / (income + outcome);
     drawCircle("#FFFFFF", -ratio, true)
-    drawCircle("#F0624D", 1 - ratio, false)
+    drawCircle("red", 1 - ratio, false)
 }

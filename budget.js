@@ -29,22 +29,22 @@ const incomeAmount = document.getElementById("income-amount-input");
 // ==================== Event Listeners ===================
 
 expenseBtn.addEventListener('click', function () {
-    active(expenseBtn);
-    inactive([incomeBtn, allBtn]);
     show(expenseEl);
     hide([incomeEl, allEl]);
+    active(expenseBtn);
+    inactive([incomeBtn, allBtn]);
 })
 incomeBtn.addEventListener('click', function () {
-    active(incomeBtn);
-    inactive([expenseBtn, allBtn]);
     show(incomeEl);
     hide([expenseEl, allEl]);
+    active(incomeBtn);
+    inactive([expenseBtn, allBtn]);
 })
 allBtn.addEventListener('click', function () {
-    active(allBtn);
-    inactive([incomeBtn, expenseBtn]);
     show(allEl);
     hide([incomeEl, expenseEl]);
+    active(allBtn);
+    inactive([incomeBtn, expenseBtn]);
 })
 
 addIncome.addEventListener('click', function () {
@@ -79,7 +79,7 @@ allList.addEventListener("click", deleteOrEdit);
 
 let ENTRY_LIST;
 let balance = 0, income = 0, outcome = 0
-const DELETE = "delete", edit = "edit"
+const DELETE = "delete", EDIT = "edit"
 
 ENTRY_LIST = JSON.parse(localStorage.getItem("entry_list")) || [];
 updateUI();
@@ -94,7 +94,7 @@ function deleteOrEdit(event) {
 
     if (targetBtn.id = DELETE) {
         deleteEntry(entry);
-    } else if (targetBtn.id == edit) {
+    } else if (targetBtn.id == EDIT) {
         editEntry(entry)
     }
 }
@@ -124,15 +124,15 @@ function editEntry(entry) {
 function updateUI() {
     income = calculateTotal("income", ENTRY_LIST);
     outcome = calculateTotal("expense", ENTRY_LIST);
-    balance = Math.abs(calculateTotal(income, outcome));
+    balance = Math.abs(calculateBalance(income, outcome));
 
     // Determine sign of balance
-    let sign = (income >= outcome) ? "$" : "-$";
+    let sign = (income >= outcome) ? "€" : "-€";
 
     // Update UI
     balancEl.innerHTML = `<small>${sign}</small>${balance}`;
-    incomeTotalEl.innerHTML = `<small>$</small>${income}`;
-    outcomeTotalEl.innerHTML = `<small>$</small>${outcome}`;
+    incomeTotalEl.innerHTML = `<small>€</small>${income}`;
+    outcomeTotalEl.innerHTML = `<small>€</small>${outcome}`;
 
     clearElement([incomeList, expenseList, allList]);
 
@@ -142,7 +142,7 @@ function updateUI() {
         } else if (entry.type == "expense") {
             showEntry(expenseList, entry.type, entry.title, entry.amount, index);
         }
-        showEntry(allList, entry.type, entry.list, entry.amount, index)
+        showEntry(allList, entry.type, entry.title, entry.amount, index)
     })
     updateChart(income, outcome)
 
@@ -151,7 +151,7 @@ function updateUI() {
 
 function showEntry(list, type, title, amount, id) {
     const entry = `<li id = "${id}" class = "${type}">
-                            <div class = "entry">${title}: $${amount}</div>
+                            <div class = "entry">${title}: €${amount}</div>
                             <div id ="edit"></div>
                             <div id ="delete"></div>
                     </li>`;
@@ -169,11 +169,11 @@ function clearElement(elements) {
 function calculateTotal(type, list) {
     let sum = 0;
 
-    for (let entry = 0; entry < list.length; entry++) {
+    Array.from(list).forEach(entry => {
         if (entry.type == type) {
             sum += entry.amount;
         }
-    }
+    })
 
     return sum;
 }
